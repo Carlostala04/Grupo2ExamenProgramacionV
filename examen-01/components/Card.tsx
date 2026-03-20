@@ -43,12 +43,10 @@ const CardProducto = ({
 
 const styles = StyleSheet.create({
   card_container: {
-    position: "relative",
     width: "100%",
-    height: "100%",
-    display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    marginVertical: 10,
   },
   card: {
     position: "relative",
@@ -75,7 +73,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "800",
     position: "absolute",
-    top: 50,
+    top: 20,
     left: 0,
     right: 0,
     textAlign: "center",
