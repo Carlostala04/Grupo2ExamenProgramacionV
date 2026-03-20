@@ -1,15 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import ProductFormScreen from './screens/ProductFormScreen';
-import CardProducto from './components/Card';
+
+import { StyleSheet,View } from 'react-native';
+// import CardProducto from './components/Card';
+import Home from "../examen-01/pages/Home"
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <ProductFormScreen />
-      <CardProducto nombre='leche' cantidad={10} categoria='lacteos' precio={200} />
-      <StatusBar style="auto" />
-    </View>
+    // <CardProducto nombre='leche' cantidad={10} categoria='lacteos' precio={200} />
+    <>
+   <View> <Home/></View>
+    </>
   );
 }
 
