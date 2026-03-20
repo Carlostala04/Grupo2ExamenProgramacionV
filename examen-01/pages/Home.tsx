@@ -53,11 +53,13 @@ const ListaProductos = () => {
 
   return (
     <View style={{ flex: 1 }}>
+      
       <FlatList
         data={productos}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <CardProducto
+          id={item.id}
             nombre={item.nombre}
             precio={item.precio}
             cantidad={item.cantidad}

@@ -2,11 +2,12 @@
 import { StyleSheet,View } from 'react-native';
 // import CardProducto from './components/Card';
 import Home from "./pages/Home"
+import ProductFormScreen from './screens/ProductFormScreen';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Home />
+      <ProductFormScreen/>
     </View>
   );
 }

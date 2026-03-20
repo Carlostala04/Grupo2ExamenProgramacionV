@@ -1,19 +1,56 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
-
+import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import React from "react";
 import { COLORS } from "../constant/colors";
+import { supabase } from "../lib/supabase"; // 👈 ajusta la ruta a tu cliente
+
 type ProductProps = {
+  id: number; // 👈 agrega el id como prop
   nombre: string;
   precio: number;
   cantidad: number;
   categoria: string;
+  onDelete?: (id: number) => void; // 👈 callback opcional para actualizar la lista
 };
+
 const CardProducto = ({
+  id,
   nombre,
   precio,
   cantidad,
   categoria,
+  onDelete,
 }: ProductProps) => {
+
+  const handleEliminar = async () => {
+    // Confirmación antes de eliminar
+    Alert.alert(
+      "Eliminar producto",
+      `¿Estás seguro de que deseas eliminar "${nombre}"?`,
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Eliminar",
+          style: "destructive",
+          onPress: async () => {
+            const { error } = await supabase
+              .from("productos")   // 👈 nombre de tu tabla
+              .delete()
+              .eq("id", id);       // 👈 campo identificador
+
+            if (error) {
+              Alert.alert("Error", "No se pudo eliminar el producto.");
+              console.error(error);
+              return;
+            }
+
+            // Notifica al componente padre para que actualice la lista
+            onDelete?.(id);
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <View style={styles.card_container}>
       <View style={styles.card}>
@@ -22,14 +59,12 @@ const CardProducto = ({
         </View>
         <View style={styles.card_body}>
           <Text style={styles.card_text}>{`$${precio}`}</Text>
-          <Text
-            style={styles.card_text}
-          >{`Cantidad disponible: ${cantidad}`}</Text>
+          <Text style={styles.card_text}>{`Cantidad disponible: ${cantidad}`}</Text>
           <Text style={styles.card_text}>{`Categoria: ${categoria}`}</Text>
         </View>
 
         <View style={styles.card_buttons}>
-          <Pressable style={styles.card_button}>
+          <Pressable style={styles.card_button} onPress={handleEliminar}> {/* 👈 */}
             <Text style={styles.text_button}>Eliminar</Text>
           </Pressable>
           <Pressable style={styles.card_button}>
@@ -40,6 +75,8 @@ const CardProducto = ({
     </View>
   );
 };
+
+// ...styles sin cambios
 
 const styles = StyleSheet.create({
   card_container: {
