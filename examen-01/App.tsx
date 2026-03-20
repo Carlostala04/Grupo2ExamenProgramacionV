@@ -8,6 +8,11 @@ export default function App() {
       <Text>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
     </View>
+import CardProducto from './components/Card';
+
+export default function App() {
+  return (
+    <CardProducto nombre='leche' cantidad={10} categoria='lacteos' precio={200} />
   );
 }
 
